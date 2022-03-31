@@ -46,6 +46,6 @@ services:
     volumes:
       - .:/usr/local/go/src/go/rest-client
     working_dir: /usr/local/go/src/go/rest-client
-    command: go test -v
+    command: go test -v -cover
     depends_on:
       - accountapi  

@@ -11,6 +11,7 @@ const (
 	INTEGRATION_TIME_OUT              = 5000
 	UNIT_ACCOUNTS_API_BASE            = "/v1/organisation/accounts"
 	SINGLE_ACCOUNT_ID                 = "ad27e265-9605-4b4b-a0e5-3003ea9cc4dc"
+	WRONG_ACCOUNT_ID                  = "adc"
 	SINGLE_ACCOUNT_MOCK_RESPONSE      = `{
 		"data": {
 			"attributes": {
@@ -41,6 +42,9 @@ const (
 		"links": {
 			"self": "/v1/organisation/accounts/ad27e265-9605-4b4b-a0e5-3003ea9cc4dc"
 		}
+	}`
+	WRONG_ACCOUNT_MOCK_RESPONSE = `{
+		"error_message": "Error occurred"
 	}`
 	MULTI_ACCOUNT_MOCK_RESPONSE = `{
 		"data": [
@@ -143,6 +147,23 @@ func populateSingleAccountDataUnitTest() *AccountData {
 	timestamp := time.Date(2022, time.March, 28, 19, 16, 20, 103000000, time.UTC)
 	accountData := &AccountData{
 		ID:             SINGLE_ACCOUNT_ID,
+		OrganisationID: orgId,
+		Type:           "accounts",
+		Version:        &version,
+		CreatedOn:      &timestamp,
+		ModifiedOn:     &timestamp,
+		Attributes:     attributes,
+	}
+	return accountData
+}
+
+func populateWrongAccountDataUnitTest() *AccountData {
+	attributes := populateAccountAttributes()
+	orgId := "ebf"
+	var version int64 = 0
+	timestamp := time.Date(2022, time.March, 28, 19, 16, 20, 103000000, time.UTC)
+	accountData := &AccountData{
+		ID:             WRONG_ACCOUNT_ID,
 		OrganisationID: orgId,
 		Type:           "accounts",
 		Version:        &version,
