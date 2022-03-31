@@ -13,6 +13,7 @@ type AccountParams struct {
 
 type AccountClient RestClient
 
+// Creates a new account client using http client.
 func NewAccountClient(httpClient *HttpClient) *AccountClient {
 	if httpClient == nil {
 		httpClient = NewHttpClient(nil)
@@ -22,6 +23,8 @@ func NewAccountClient(httpClient *HttpClient) *AccountClient {
 	}
 }
 
+// Gets a single account using the account ID.
+// Returns account data, links and http response.
 func (accountClient *AccountClient) FetchById(id string) (*AccountData, *Links, *http.Response, error) {
 	accountResponse := new(AccountData)
 	links := new(Links)
@@ -36,6 +39,8 @@ func (accountClient *AccountClient) FetchById(id string) (*AccountData, *Links, 
 	return accountResponse, links, httpResponse, nil
 }
 
+// List accounts with optional page parameters.
+// Returns list of accounts' data, links and http response.
 func (accountClient *AccountClient) ListAccount(params *AccountParams) ([]*AccountData, *Links, *http.Response, error) {
 	accounts := new([]*AccountData)
 	links := new(Links)
@@ -50,6 +55,8 @@ func (accountClient *AccountClient) ListAccount(params *AccountParams) ([]*Accou
 	return *accounts, links, httpResponse, nil
 }
 
+// Creates a bank account with provided account data payload.
+// Returns account data, links and http response.
 func (accountClient *AccountClient) CreateAccount(payload *AccountData) (*AccountData, *Links, *http.Response, error) {
 	accountResponse := new(AccountData)
 	links := new(Links)
@@ -62,6 +69,8 @@ func (accountClient *AccountClient) CreateAccount(payload *AccountData) (*Accoun
 	return accountResponse, links, httpResponse, nil
 }
 
+// Deletes a account using the account ID and version number.
+// Returns http response.
 func (accountClient *AccountClient) DeleteAccount(id string, version int) (*http.Response, error) {
 	url := deleteAccountApiUrl(accountClient.HttpClient.BaseURL, id, version)
 
@@ -74,11 +83,13 @@ func (accountClient *AccountClient) DeleteAccount(id string, version int) (*http
 	return httpResponse, nil
 }
 
+// Populates fetch account API URL from base URL and account ID
 func fetchAccountApiUrl(baseURL string, id string) string {
 	url := fmt.Sprintf("%s/%s", baseURL, id)
 	return url
 }
 
+// Populates list account API URL from base URL and page parameters
 func listAccountApiUrl(baseURL string, params *AccountParams) string {
 	url := baseURL
 	if params != nil {
@@ -87,6 +98,7 @@ func listAccountApiUrl(baseURL string, params *AccountParams) string {
 	return url
 }
 
+// Populates delete account API URL from base URL, account ID and version
 func deleteAccountApiUrl(baseURL string, id string, version int) string {
 	url := fmt.Sprintf("%s/%s?version=%d", baseURL, id, version)
 	return url

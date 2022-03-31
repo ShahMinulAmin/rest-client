@@ -34,6 +34,7 @@ var CLIENT_SETTING_DEFAULT = &ClientSetting{
 	Timeout: 5000,
 }
 
+// Creates a new http client using client setting.
 func NewHttpClient(setting *ClientSetting) *HttpClient {
 	if setting == nil {
 		setting = CLIENT_SETTING_DEFAULT
@@ -46,6 +47,8 @@ func NewHttpClient(setting *ClientSetting) *HttpClient {
 	}
 }
 
+// Http GET method implementation using url and payload, also takes response data and link data interfaces.
+// Returns http response.
 func (httpClient *HttpClient) Get(url string, payload interface{}, responseData interface{}, linkData interface{}) (*http.Response, error) {
 	request, err := httpClient.newHttpRequest("GET", url, payload)
 	if err != nil {
@@ -55,6 +58,8 @@ func (httpClient *HttpClient) Get(url string, payload interface{}, responseData 
 	return httpClient.perform(context.Background(), request, responseData, linkData)
 }
 
+// Http POST method implementation using url and payload, also takes response data and link data interfaces.
+// Returns http response.
 func (httpClient *HttpClient) Post(url string, payload interface{}, responseData interface{}, linkData interface{}) (*http.Response, error) {
 	request, err := httpClient.newHttpRequest("POST", url, payload)
 	if err != nil {
@@ -64,6 +69,8 @@ func (httpClient *HttpClient) Post(url string, payload interface{}, responseData
 	return httpClient.perform(context.Background(), request, responseData, linkData)
 }
 
+// Http DELETE method implementation using url.
+// Returns http response.
 func (httpClient *HttpClient) Delete(url string) (*http.Response, error) {
 	request, err := httpClient.newHttpRequest("DELETE", url, nil)
 	if err != nil {
@@ -73,6 +80,8 @@ func (httpClient *HttpClient) Delete(url string) (*http.Response, error) {
 	return httpClient.perform(context.Background(), request, nil, nil)
 }
 
+// Creates a new http request from http method name, url and payload body.
+// Returns http request.
 func (httpClient *HttpClient) newHttpRequest(method, url string, bodyType interface{}) (*http.Request, error) {
 	var payloadBuffer io.Reader
 	if bodyType != nil {
@@ -93,6 +102,8 @@ func (httpClient *HttpClient) newHttpRequest(method, url string, bodyType interf
 	return request, nil
 }
 
+// Performs a http request using context and http request, also takes response data and link data interfaces.
+// Returns http response.
 func (httpClient *HttpClient) perform(ctx context.Context, httpRequest *http.Request, responseData interface{}, linkData interface{}) (*http.Response, error) {
 	httpRequest = httpRequest.WithContext(ctx)
 	httpResponse, err := httpClient.client.Do(httpRequest)
