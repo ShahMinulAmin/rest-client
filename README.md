@@ -8,4 +8,5 @@ Create, Fetch, and Delete operations on the accounts resource have been implemen
 Using docker command `docker-compose up` would run all test cases.
 
 ## Future enhancements
-* Implement Exponential back-off retry algorithm
+* Implement Exponential back-off retry algorithm.
+* Publish and distribute the module.
