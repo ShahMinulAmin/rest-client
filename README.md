@@ -1,7 +1,7 @@
 ## rest-client
-I am Shah Minul Amin. This is my first project written in Go. It was fun to learn a new language and implement a client library.
+This is my first project written in Go. It was fun to learn a new language and implement a client library.
 
-This rest client library, implemented in Go, accesses the form3 account API provided as Docker container in the file docker-compose.yaml.
+This rest client library, implemented in Go, accesses a dummy account API provided as Docker container in the file docker-compose.yaml.
 
 Create, Fetch, and Delete operations on the accounts resource have been implemented. List operation is also implemented in addition.
 
