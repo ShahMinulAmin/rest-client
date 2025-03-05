@@ -1,3 +1,4 @@
+[![Build Status](http://ec2-54-171-246-10.eu-west-1.compute.amazonaws.com/buildStatus/icon?job=git-pipeline)](http://ec2-54-171-246-10.eu-west-1.compute.amazonaws.com/job/git-pipeline/) 
 ## rest-client
 This is my first project written in Go. It was fun to learn a new language and implement a client library.
 
